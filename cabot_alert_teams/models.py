@@ -54,3 +54,7 @@ class TeamsAlert(AlertPlugin):
             content_type="html",
             importance="high",
         )
+
+
+class TeamsAlertUserData(AlertPluginUserData):
+    name = "Teams"
