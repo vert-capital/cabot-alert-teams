@@ -6,4 +6,4 @@ pip-upgrader
 click==8.1.3
 pytest==7.2.0
 pytest-watch==4.2.0
-confluent-kafka==1.9.2
+requests

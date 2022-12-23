@@ -1,6 +1,7 @@
 import json
+import os
 
-from cabot_alert_teams.kafka import producer
+import requests
 
 
 def send_message(to, message, content_type="html", importance="normal"):
@@ -17,4 +18,11 @@ def send_message(to, message, content_type="html", importance="normal"):
         }
     )
 
-    producer("teams-message", payload)
+    url = os.environ.get("MSBOT_URL", "") + "api/send-message-users"
+
+    headers = {
+        "Authorization": os.environ.get("MSBOT_KEY", ""),
+        "Content-Type": "application/json",
+    }
+
+    requests.request("POST", url, headers=headers, data=payload)
