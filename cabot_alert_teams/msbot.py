@@ -3,9 +3,7 @@ import json
 from cabot_alert_teams.kafka import producer
 
 
-def send_message(
-    to: list, message: str, content_type: str = "html", importance: str = "normal"
-) -> dict:
+def send_message(to, message, content_type="html", importance="normal"):
     """
     Send message to Microsoft Teams
     """

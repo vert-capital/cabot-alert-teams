@@ -6,12 +6,10 @@ from uuid import uuid4
 from confluent_kafka import Producer
 
 
-def producer(
-    topic: str, message: str, key: str = None, on_delivery: FunctionType = None
-) -> None:
+def producer(topic, message, key=None, on_delivery: FunctionType = None):
 
     if key is None:
-        key: str = str(uuid4())
+        key = str(uuid4())
 
     conf = {
         "bootstrap.servers": os.environ.get("KAFKA_BOOTSTRAP_SERVERS"),
