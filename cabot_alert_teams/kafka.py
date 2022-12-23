@@ -1,6 +1,5 @@
 import os
 import socket
-from types import FunctionType
 from uuid import uuid4
 
 from confluent_kafka import Producer

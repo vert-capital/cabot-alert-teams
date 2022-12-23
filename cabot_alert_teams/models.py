@@ -1,4 +1,4 @@
-from cabot.cabotapp.alert import AlertPlugin
+from cabot.cabotapp.alert import AlertPlugin, AlertPluginUserData
 from django.template import Context, Template
 
 from cabot_alert_teams.msbot import send_message
