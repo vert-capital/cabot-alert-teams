@@ -25,4 +25,9 @@ def send_message(to, message, content_type="html", importance="normal"):
         "Content-Type": "application/json",
     }
 
+    print("Sending message to MS Teams")
+    print(url)
+    print(payload)
+    print("token:", os.environ.get("MSBOT_KEY", ""))
+
     requests.request("POST", url, headers=headers, data=payload)
