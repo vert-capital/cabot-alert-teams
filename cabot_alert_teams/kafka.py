@@ -6,7 +6,7 @@ from uuid import uuid4
 from confluent_kafka import Producer
 
 
-def producer(topic, message, key=None, on_delivery: FunctionType = None):
+def producer(topic, message, key=None, on_delivery=None):
 
     if key is None:
         key = str(uuid4())
