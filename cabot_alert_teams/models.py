@@ -19,7 +19,7 @@ Passing checks:{% for check in service.all_passing_checks %}
 """
 
 
-class EmailAlert(AlertPlugin):
+class TeamsAlert(AlertPlugin):
     name = "Teams"
     author = "Thiago Freitas"
 
