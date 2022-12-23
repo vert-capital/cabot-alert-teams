@@ -24,6 +24,8 @@ class TeamsAlert(AlertPlugin):
     author = "Thiago Freitas"
 
     def send_alert(self, service, users, duty_officers):
+        print("000000")
+
         emails = set([u.email for u in users if u.email])
 
         c = Context(
@@ -33,7 +35,11 @@ class TeamsAlert(AlertPlugin):
                 "scheme": "https",
             }
         )
+
+        print("service.overall_status", service.overall_status)
+
         if service.overall_status != service.PASSING_STATUS:
+            print("aqui 1")
             if service.overall_status == service.CRITICAL_STATUS:
                 emails.update([u.email for u in duty_officers if u.email])
             subject = "%s status for service: %s" % (
@@ -41,8 +47,10 @@ class TeamsAlert(AlertPlugin):
                 service.name,
             )
         else:
+            print("aqui 2")
             subject = "Service back to normal: %s" % (service.name,)
         if not emails:
+            print("aqui 3")
             return
 
         t = Template(email_template)
