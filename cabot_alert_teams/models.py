@@ -4,8 +4,7 @@ from django.template import Context, Template
 from cabot_alert_teams.msbot import send_message
 
 email_template = """<b>PROBLEMA EM APLICAÇÃO</b><br>Service <b>{{ service.name }}</b><br>
-<a target='_blank' href='{{ scheme }}://{{ host }}'>{{ scheme }}://{{ host }}</a><br>
-{% url 'service' pk=service.id %} {% if service.overall_status != service.PASSING_STATUS %}alerting
+<a target='_blank' href='{{ scheme }}://{{ host }}{% url 'service' pk=service.id %}'>{{ scheme }}://{{ host }}{% url 'service' pk=service.id %}</a><br> {% if service.overall_status != service.PASSING_STATUS %}alerting
 with status: {{ service.overall_status }}{% else %}is back to normal{% endif %}.<br>
 {% if service.overall_status != service.PASSING_STATUS %}
 CHECKS FAILING:{% for check in service.all_failing_checks %}
