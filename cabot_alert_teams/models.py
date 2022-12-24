@@ -46,17 +46,11 @@ class TeamsAlert(AlertPlugin):
         if not emails:
             return
 
-        print("************************************")
-        print("************************************")
-        print("ALETA POR TEAMS")
-        print("teste 1111")
-
         t = Template(email_template)
         message = "<b>APP OFFLINE STATUS</b><br>" + subject + "<br>" + t.render(c)
 
         emails = list(emails)
 
-        print("teste 22222")
         send_message(
             emails,
             message,

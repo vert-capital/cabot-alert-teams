@@ -18,17 +18,11 @@ def send_message(to, message):
         }
     )
 
-    print("PAYLOAD: ", payload)
-
     url = os.environ.get("MSBOT_URL", "") + "api/send-message-users"
-
-    print("URL: ", url)
 
     headers = {
         "Authorization": os.environ.get("MSBOT_KEY", ""),
         "Content-Type": "application/json",
     }
 
-    resp = requests.request("POST", url, headers=headers, data=payload)
-
-    print("RESPONSE: ", resp.text)
+    requests.request("POST", url, headers=headers, data=payload)
