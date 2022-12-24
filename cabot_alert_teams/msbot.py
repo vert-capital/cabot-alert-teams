@@ -4,7 +4,7 @@ import os
 import requests
 
 
-def send_message(to, message, content_type="html", importance="normal"):
+def send_message(to, message):
     """
     Send message to Microsoft Teams
     """
@@ -13,8 +13,8 @@ def send_message(to, message, content_type="html", importance="normal"):
         {
             "users": to,
             "message": message,
-            "importance": importance,
-            "contentType": content_type,
+            "importance": "high",
+            "contentType": "html",
         }
     )
 

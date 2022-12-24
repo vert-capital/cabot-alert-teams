@@ -56,11 +56,12 @@ class TeamsAlert(AlertPlugin):
         t = Template(email_template)
         message = subject + "<br>" + t.render(c)
 
+        print("emails", emails)
+        print("message", message)
+
         send_message(
-            to=emails,
-            message=message,
-            content_type="html",
-            importance="high",
+            emails,
+            message,
         )
 
 
