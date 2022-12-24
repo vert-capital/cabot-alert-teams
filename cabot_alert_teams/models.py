@@ -3,17 +3,18 @@ from django.template import Context, Template
 
 from cabot_alert_teams.msbot import send_message
 
-email_template = """Service {{ service.name }} {{ scheme }}://{{ host }}
+email_template = """Service <b>{{ service.name }}</b><br>
+<a target='_blank' href='{{ scheme }}://{{ host }}'>{{ scheme }}://{{ host }}</a><br>
 {% url 'service' pk=service.id %} {% if service.overall_status != service.PASSING_STATUS %}alerting
-with status: {{ service.overall_status }}{% else %}is back to normal{% endif %}.
+with status: {{ service.overall_status }}{% else %}is back to normal{% endif %}.<br>
 {% if service.overall_status != service.PASSING_STATUS %}
 CHECKS FAILING:{% for check in service.all_failing_checks %}
   FAILING - {{ check.name }} - Type: {{ check.check_category }} - Importance:
-   {{ check.get_importance_display }}{% endfor %}
+   <b>{{ check.get_importance_display }}</b>{% endfor %}
 {% if service.all_passing_checks %}
 Passing checks:{% for check in service.all_passing_checks %}
   PASSING - {{ check.name }} - Type: {{ check.check_category }} - Importance:
-  {{ check.get_importance_display }}{% endfor %}
+  <b>{{ check.get_importance_display }}</b>{% endfor %}
 {% endif %}
 {% endif %}
 """
@@ -24,8 +25,6 @@ class TeamsAlert(AlertPlugin):
     author = "Thiago Freitas"
 
     def send_alert(self, service, users, duty_officers):
-        print("000000")
-
         emails = set([u.email for u in users if u.email])
 
         c = Context(
@@ -36,28 +35,20 @@ class TeamsAlert(AlertPlugin):
             }
         )
 
-        print("service.overall_status", service.overall_status)
-
         if service.overall_status != service.PASSING_STATUS:
-            print("aqui 1")
             if service.overall_status == service.CRITICAL_STATUS:
                 emails.update([u.email for u in duty_officers if u.email])
-            subject = "%s status for service: %s" % (
+            subject = "<b>%s</b> status for service: <b>%s</b>" % (
                 service.overall_status,
                 service.name,
             )
         else:
-            print("aqui 2")
-            subject = "Service back to normal: %s" % (service.name,)
+            subject = "Service back to normal: <b>%s</b>" % (service.name,)
         if not emails:
-            print("aqui 3")
             return
 
         t = Template(email_template)
         message = subject + "<br>" + t.render(c)
-
-        print("emails", emails)
-        print("message", message)
 
         emails = list(emails)
 
