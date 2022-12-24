@@ -59,6 +59,8 @@ class TeamsAlert(AlertPlugin):
         print("emails", emails)
         print("message", message)
 
+        emails = list(emails)
+
         send_message(
             emails,
             message,
