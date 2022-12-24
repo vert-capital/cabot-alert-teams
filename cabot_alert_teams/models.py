@@ -3,7 +3,7 @@ from django.template import Context, Template
 
 from cabot_alert_teams.msbot import send_message
 
-email_template = """<b>PROBLEMA EM APLICAÇÃO</b><br>Service <b>{{ service.name }}</b><br>
+email_template = """Service <b>{{ service.name }}</b><br>
 <a target='_blank' href='{{ scheme }}://{{ host }}{% url 'service' pk=service.id %}'>{{ scheme }}://{{ host }}{% url 'service' pk=service.id %}</a><br> {% if service.overall_status != service.PASSING_STATUS %}alerting
 with status: {{ service.overall_status }}{% else %}is back to normal{% endif %}.<br>
 {% if service.overall_status != service.PASSING_STATUS %}
@@ -47,7 +47,7 @@ class TeamsAlert(AlertPlugin):
             return
 
         t = Template(email_template)
-        message = subject + "<br>" + t.render(c)
+        message = "<b>ERRO EM APLICAÇÃO</b><br>" + subject + "<br>" + t.render(c)
 
         emails = list(emails)
 
