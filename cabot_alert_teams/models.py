@@ -47,7 +47,7 @@ class TeamsAlert(AlertPlugin):
             return
 
         t = Template(email_template)
-        message = "<b>ERRO EM APLICAÇÃO</b><br>" + subject + "<br>" + t.render(c)
+        message = "<b>APLICAÇÃO OFFLINE STATUS</b><br>" + subject + "<br>" + t.render(c)
 
         emails = list(emails)
 
